@@ -1,0 +1,24 @@
+{
+  "name": "courseplatform",
+  "version": "1.0.0",
+  "description": "servidor que gerencia os videos que verei no youtube conforme o tempo que tenho disponivel",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djonata-dias/coursePlatform.git"
+  },
+  "author": "Djonata de Souza Dias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djonata-dias/coursePlatform/issues"
+  },
+  "homepage": "https://github.com/djonata-dias/coursePlatform#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
