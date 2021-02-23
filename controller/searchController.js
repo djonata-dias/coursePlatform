@@ -19,63 +19,68 @@ const searchGoogleApi = (params, video) => {
   return list;
 };
 
-// router.get('/', (req, res) => {
-//   res.status(200).render('index');
-// });
+router.get('/', (_req, res) => {
+  res.status(200).render('index', { data: null, details: null });
+});
 
-router.get('/', async (req, res) => {
-  const { query, weekTime } = req.body;
-  let params = {
-    q: query,
-    part: ['id'],
-    maxResults: 50,
-    type: 'video'
-  };
-  const timeList = [15, 120, 30, 150, 20, 40, 90]
-  // Requisição que retorna a lista de filmes conforme 
-  //const list = await searchList(params);
-  const idList = [];
-  const videosList = [];
-  const weekVideos = [[], [], [], [], [], [], []];
+router.post('/', async (req, res) => {
+  try {
 
-  searchMock.data.items.forEach(({ id }) => {
-    idList.push(id.videoId);
-  });
-  params.part = ['snippet', 'contentDetails', 'player'];
-  params.id = idList;
 
-  videosListMock.data.items.forEach(({ snippet, tags, player, contentDetails }) => {
-    const video = {
-      title: snippet.title,
-      description: snippet.description,
-      duration: +convertTime(contentDetails.duration),
-      tags,
-      player
+    const { query, time } = req.body;
+    let params = {
+      q: query,
+      part: ['id'],
+      maxResults: 50,
+      type: 'video'
     };
-    videosList.push(video);
-  })
-  let indexList = 0
-  let time = 0;
-  while (indexList < 7) {
-    for (let i = 0; i < videosList.length; i++) {
-      time += Number(videosList[i].duration);
-      if (Number(time) <= Number(timeList[indexList])) {
-        weekVideos[indexList].push(videosList[i]);
-        videosList.splice(i, 1);
-      } else {
-        break
-      }
-    }
-    indexList += 1;
-    time = 0;
-  }
-  // Requisição que retorna os dados dos filmes retornados na pesquisa 
-  //const videos = await searchGoogleApi(params, true);
+    // Requisição que retorna a lista de filmes conforme 
+    //const list = await searchList(params);
+    const idList = [];
+    const videosList = [];
+    const weekVideos = [[], [], [], [], [], [], []];
 
-  // Realizei um mock na resposta da API pois as requisições são muito limitadas
-  res.status(200).json(weekVideos);
+    searchMock.data.items.forEach(({ id }) => {
+      idList.push(id.videoId);
+    });
+    params.part = ['snippet', 'contentDetails', 'player'];
+    params.id = idList;
+
+    videosListMock.data.items.forEach(({ snippet, tags, id, contentDetails }) => {
+      const video = {
+        id,
+        title: snippet.title,
+        description: snippet.description,
+        duration: +convertTime(contentDetails.duration),
+        tags: snippet.tags,
+      };
+      videosList.push(video);
+    })
+    let indexList = 0
+    let timeCount = 0;
+    let totalTime = 0;
+    while (indexList < 7) {
+      for (let i = 0; i < videosList.length; i++) {
+        timeCount += Number(videosList[i].duration);
+        if (Number(timeCount) <= Number(time[indexList])) {
+          weekVideos[indexList].push(videosList[i]);
+          totalTime += Number(videosList[i].duration);
+          videosList.splice(i, 1);
+        } else {
+          break
+        }
+      }
+      indexList += 1;
+      timeCount = 0;
+    }
+    // Requisição que retorna os dados dos filmes da pesquisa 
+    //const videos = await searchGoogleApi(params, true);
+
+    // Realizei um mock na resposta da API pois as requisições são muito limitadas
+    res.status(200).render('index', { data: weekVideos, details: { totalTime } });
+  } catch (error) {
+    res.status(500).send({ message: error })
+  }
 });
 
 module.exports = router;
-
-console.log(7.97 <= 30);
