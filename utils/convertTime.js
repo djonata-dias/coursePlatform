@@ -22,4 +22,4 @@ const convertToMinutes = (timeString) => {
   return totalMinutes;
 };
 
-module.exports = { convertToMinutes } 
+module.exports = convertToMinutes  
