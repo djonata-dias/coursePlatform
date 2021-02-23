@@ -10,12 +10,16 @@ const PORT = process.env.PORT;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
+app.set('views', './views');
 
 app.use('/search', searchController);
+
 app.get('*', (_req, res) => {
-  res.status(404).json({ message: 'Page not found' })
+  res.status(404);
+  res.render('notFound');
 });
 
 app.listen(PORT, () => {
