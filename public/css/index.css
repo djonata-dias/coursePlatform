@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  quotes: none;
+}
+
+.timeLabel {
+  width: 7%;
+}
+
+body {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.show {
+  margin-bottom: 100px;
+}
+
+#videos-list {
+  min-height: 50%;
+}
