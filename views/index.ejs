@@ -1,13 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Plataform</title>
+  <link rel="stylesheet" href="/css/index.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/script/index.js"></script>
+  <macrolist>
+    <macro id="footer">
+
+    </macro>
+  </macrolist>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar d-flex flex-row bd-highlight bg-dark text-white justify-content-center">
+      <div class="p-1 bd-highlight">
+        <h1 class="text-center">Course Plataform</h1>
+      </div>
+    </nav>
+  </header>
+
+  <section>
+    <form id="form-plataform" class="row m-5 align-content-center text-center" action="/search" method="POST">
+      <div class="m-3">
+        <h3>Tempo disponível por dia da semana</h3>
+        <label class="form-label timeLabel">
+          Segunda
+          <input name='time' value=0 type="number" min="0" step="1" class="form-control">
+        </label>
+        <label class="form-label timeLabel">
+          Terça
+          <input name='time' value=0 type="number" min="0" step="1" class="form-control">
+        </label>
+        <label class="form-label timeLabel">
+          Quarta
+          <input name='time' value=0 type="number" min="0" step="1" class="form-control">
+        </label>
+        <label class="form-label timeLabel">
+          Quinta
+          <input name='time' value=0 type="number" min="0" step="1" class="form-control">
+        </label>
+        <label class="form-label timeLabel">
+          Sexta
+          <input name='time' value=0 type="number" min="0" step="1" class="form-control">
+        </label>
+        <label class="form-label timeLabel">
+          Sábado
+          <input name='time' value=0 type="number" min="0" step="1" class="form-control">
+        </label>
+        <label class="form-label timeLabel">
+          Domingo
+          <input name='time' value=0 type="number" min="0" step="1" class="form-control">
+        </label>
+      </div>
+      <div>
+        <input class="w-25" type="text" placeholder="Pesquisar" id="query" name="query">
+        <button style="width: 100px;" type="submit">Enviar</button>
+      </div>
+    </form>
+
+  </section>
+  <section style="min-height: 900px;">
+    <div id="accordion" class="justify-content-center center text-center">
+      <%if(data){%>
+        <div class="m-5">
+          <button type="button" data-toggle="collapse" data-target="#weekday0" id="weekday-btn0" aria-expanded="false"
+            class="btn btn-dark" aria-controls="weekday0">Segunda</button>
+          <button type="button" data-toggle="collapse" data-target="#weekday1" id="weekday-btn1" aria-expanded="false"
+            class="btn btn-dark" aria-controls="weekday1">Terça</button>
+          <button type="button" data-toggle="collapse" data-target="#weekday2" id="weekday-btn2" aria-expanded="false"
+            class="btn btn-dark" aria-controls="weekday2">Quarta</button>
+          <button type="button" data-toggle="collapse" data-target="#weekday3" id="weekday-btn3" aria-expanded="false"
+            class="btn btn-dark" aria-controls="weekday3">Quinta</button>
+          <button type="button" data-toggle="collapse" data-target="#weekday4" id="weekday-btn4" aria-expanded="false"
+            class="btn btn-dark" aria-controls="weekday4">Sexta</button>
+          <button type="button" data-toggle="collapse" data-target="#weekday5" id="weekday-btn5" aria-expanded="false"
+            class="btn btn-dark" aria-controls="weekday5">Sábado</button>
+          <button type="button" data-toggle="collapse" data-target="#weekday6" id="weekday-btn6" aria-expanded="false"
+            class="btn btn-dark" aria-controls="weekday6">Domingo</button>
+        </div>
+        <div id="video-container" class="container">
+          <%data.forEach((weekday, index)=> {
+            if(weekday.length){%>
+
+            <div class='row collapse weekday' aria-labelledby=weekday-btn<%=index%>
+              data-parent="#accordion"
+              id=weekday<%=index%>
+                >
+                <%weekday.forEach((video)=> {%>
+                  <div class="card m-5" style="width: 20rem;">
+                    <div class="card-body">
+                      <h6 class="card-title">
+                        <%=video.title%>
+                      </h6>
+                      <iframe style="height:200px;width:18rem;"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen src=<%=('https://www.youtube.com/embed/').concat(video.id)%>
+                        ></iframe>
+
+                      <div class="card-text position-relative active" style="height: 50px;overflow-y: scroll;">
+                        <%=video.description%>
+                      </div>
+                    </div>
+                  </div>
+                  <%})%>
+            </div>
+            <% } }) %>
+              <p>
+              </p>
+              <%}%>
+        </div>
+  </section>
+  <footer class="modal-footer justify-content-center bg-dark text-white text-center w-100 bottom-0 position-relative">
+    <div>
+      <button onclick='window.location.href="https://github.com/djonata-dias"' target="_blank"
+        class="bg-transparent border-0" rel="noopener noreferrer">
+        <img src="/images/github-pages-icon.png" alt="Icone do GitHub" width="50px" />
+      </button>
+      <button onclick='window.location.href="https://www.linkedin.com/in/djonata-dias/"' target="_blank"
+        class="bg-transparent border-0" rel="noopener noreferrer">
+        <img src="/images/linkedin-icon.png" alt="Icone do Linkedin" width="30px" />
+      </button>
+
+    </div>
+    <h5 class="m-3">
+      Desenvolvido por Djonata de Souza Dias
+    </h5>
+  </footer>
+</body>
+
+</html>
