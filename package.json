@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/djonata-dias/coursePlatform#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "googleapis": "^67.1.0",
     "nodemon": "^2.0.7"
