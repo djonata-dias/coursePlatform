@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "nodemon server.js",
-    "start": "node server.js"
+    "start": "pm2-runtime start ecosystem.config.yml",
+    "start:dev": "pm2-runtime start server.js --app --watch"
   },
   "repository": {
     "type": "git",
@@ -20,10 +21,14 @@
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "googleapis": "^67.1.0",
-    "nodemon": "^2.0.7"
+    "jest": "^26.6.3",
+    "jquery": "^3.5.1",
+    "nodemon": "^2.0.7",
+    "pm2": "^4.5.4"
   }
 }
