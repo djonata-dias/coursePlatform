@@ -18,7 +18,11 @@ const convertToMinutes = (timeString) => {
       seconds = newTime[2];
       break;
   }
-  const totalMinutes = hours * 60 + minutes + seconds / 60;
+  hours = Number(hours)
+  minutes = Number(minutes)
+  seconds = Number(seconds)
+
+  const totalMinutes = ((hours * 60) + minutes + (seconds / 60)).toFixed(2);
   return totalMinutes;
 };
 
