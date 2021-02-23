@@ -4,27 +4,26 @@ const { google } = require('googleapis');
 
 const router = express.Router();
 
-router.get('/:q', async (req, res) => {
-  console.log(req.params.q);
+const searchList = (params) => {
   const youtube = google.youtube({
     version: 'v3',
     auth: process.env.API_KEY,
   });
+  const list = youtube.search.list(params)
+  return list;
+};
 
+router.get('/:query', async (req, res) => {
+  data = [];
   const params = {
-    q: req.params.q,
-    chart: 'mostPopular',
-    part: ['contentDetails', 'player'],
+    q: req.params.query,
+    part: ['id'],
+    maxResults: 50,
+    type: 'video'
   };
+  const videos = await searchList(params);
 
-  const data = await youtube.videos.list(params, (err, response) => {
-    if (err) {
-      console.error(err);
-      throw (err)
-    }
-    console.log(response.data.items.length);
-    return res.status(200).json({ data: response.data.items })
-  });
+  res.status(200).json(videos);
 });
 
 module.exports = router;
