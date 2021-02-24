@@ -93,7 +93,7 @@
           "channelId": "UCT0hbLDa-unWsnZ6Rjzkfug",
           "title": "GODZILLA VS KONG Trailer 2 (2021)",
           "description": "Second trailer for GODZILLA VS KONG",
-          "thumbnails": {
+          "thumbnails": { 
             "default": {
               "url": "https://i.ytimg.com/vi/P6HqTjuZPAk/default.jpg",
               "width": 120,
