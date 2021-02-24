@@ -1,1 +1,1 @@
-web: npm start ecosystem.config.yml
+web: npm start
