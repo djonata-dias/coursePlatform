@@ -1,1 +1,1 @@
-web: pm2-runtime start ecosystem.config.yml
+web: npm start ecosystem.config.yml
