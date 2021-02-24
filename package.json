@@ -2,11 +2,11 @@
   "name": "courseplatform",
   "version": "1.0.0",
   "description": "servidor que gerencia os videos que verei no youtube conforme o tempo que tenho disponivel",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "nodemon server.js",
+    "test": "nodemon index.js",
     "start": "pm2-runtime start ecosystem.config.yml",
-    "start:dev": "pm2-runtime start server.js --app --watch"
+    "start:dev": "pm2-runtime start index.js --app --watch"
   },
   "repository": {
     "type": "git",
