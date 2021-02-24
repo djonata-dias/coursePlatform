@@ -35,18 +35,18 @@ router.post('/', async (req, res) => {
       type: 'video'
     };
     // Requisição que retorna a lista de filmes conforme 
-    //const list = await searchList(params);
+    const list = await searchList(params);
     const idList = [];
     const videosList = [];
     const weekVideos = [[], [], [], [], [], [], []];
 
-    searchMock.data.items.forEach(({ id }) => {
+    list.data.items.forEach(({ id }) => {
       idList.push(id.videoId);
     });
     params.part = ['snippet', 'contentDetails', 'player'];
     params.id = idList;
 
-    videosListMock.data.items.forEach(({ snippet, tags, id, contentDetails }) => {
+    videosList.data.items.forEach(({ snippet, tags, id, contentDetails }) => {
       const video = {
         id,
         title: snippet.title,
@@ -74,10 +74,10 @@ router.post('/', async (req, res) => {
       timeCount = 0;
     }
     // Requisição que retorna os dados dos filmes da pesquisa 
-    //const videos = await searchGoogleApi(params, true);
+    const videos = await searchGoogleApi(params, true);
 
     // Realizei um mock na resposta da API pois as requisições são muito limitadas
-    res.status(200).render('index', { data: weekVideos, details: { totalTime } });
+    res.status(200).render('index', { data: videos, details: { totalTime } });
   } catch (error) {
     res.status(500).send({ message: error })
   }
