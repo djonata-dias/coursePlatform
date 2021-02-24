@@ -39,14 +39,15 @@ router.post('/', async (req, res) => {
     const idList = [];
     const videosList = [];
     const weekVideos = [[], [], [], [], [], [], []];
-
-    searchMock.data.items.forEach(({ id }) => {
+    const search = await searchGoogleApi(params)
+    search.data.items.forEach(({ id }) => {
       idList.push(id.videoId);
     });
     params.part = ['snippet', 'contentDetails', 'player'];
     params.id = idList;
+    const videosSearch = await searchGoogleApi(params, true)
 
-    videosListMock.data.items.forEach(({ snippet, tags, id, contentDetails }) => {
+    videosSearch.data.items.forEach(({ snippet, tags, id, contentDetails }) => {
       const video = {
         id,
         title: snippet.title,
